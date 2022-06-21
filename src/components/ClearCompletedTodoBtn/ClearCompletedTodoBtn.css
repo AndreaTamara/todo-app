@@ -1,0 +1,17 @@
+.clear-completed-btn{
+    color:hsl(236, 9%, 61%);
+    font-size: 12px;
+    
+}
+
+.clear-completed-btn:hover{
+    color:hsl(235, 19%, 35%);
+    cursor: pointer;
+}
+.clear-completed-btn-dark-mode{
+    color:hsl(234, 11%, 52%);
+}
+
+.clear-completed-btn-dark-mode:hover{
+    color:hsl(236, 33%, 92%);
+}

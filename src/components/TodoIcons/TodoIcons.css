@@ -1,0 +1,31 @@
+.icon-container{
+    display: grid;
+    place-content: center;
+    width: 16px;
+    height: 16px;
+}
+
+.icon-container:hover{
+    cursor: pointer;
+}
+.edit-icon:hover{
+    color:hsl(220, 98%, 61%);
+}
+.alert-icon{
+    width: 40px;
+    height: 40px;
+}
+.moon-icon,
+.sun-icon{
+    width: 23px;
+    height: 23px;
+}
+
+.edit-icon{
+    width: 18px;
+    height: 18px;
+}
+.delete-icon{
+    width: 20px;
+    height: 20px;
+}

@@ -1,0 +1,12 @@
+.header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.tittle{
+    color:hsl(0, 0%, 100%);
+    letter-spacing: 13px;
+    font-weight: 700;
+    font-size: 32px;
+}

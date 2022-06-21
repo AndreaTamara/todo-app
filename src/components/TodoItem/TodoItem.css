@@ -1,0 +1,85 @@
+.todo-item-container{
+    min-height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: transparent;
+    padding: 10px 15px;
+    border-bottom: 1px solid hsl(236, 33%, 92%);
+}
+.todo-item-container-darkMode{
+    border-bottom: 1px solid hsl(237, 14%, 26%);
+}
+
+.circle-check{
+    border: 1px solid hsl(233, 11%, 84%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+}
+.circle-check-dark-mode{
+    border: 1px solid hsl(237, 14%, 26%);
+}
+.circle-check-ligth-mode:hover{
+    background: 
+    linear-gradient(to right bottom,hsl(0, 0%, 100%),hsl(0, 0%, 100%)) padding-box,
+    linear-gradient(to right bottom,hsl(192, 100%, 67%),hsl(280, 87%, 65%)) border-box;
+    border: 1px solid transparent;
+}
+.circle-check-dark-mode:hover{
+    background: 
+    linear-gradient(to right bottom,hsl(235, 24%, 19%),hsl(235, 24%, 19%)) padding-box,
+    linear-gradient(to right bottom,hsl(192, 100%, 67%),hsl(280, 87%, 65%)) border-box;
+    border: 1px solid transparent;
+}
+
+.circle-check-completed{
+    background: linear-gradient(to right bottom,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
+}
+.todo-text{
+    width: 70%;
+    color:hsl(235, 19%, 35%);
+    font-weight: 400;
+    font-size: 18px;
+}
+.todo-text-dark-mode{
+    color:hsl(236, 33%, 92%);
+}
+.todo-text-completed{
+    text-decoration: line-through;
+    color:hsl(233, 11%, 84%);
+}
+
+.todo-text-dark-mode.todo-text-completed{
+    color:hsl(233, 14%, 35%);
+}
+
+.btns-container{
+    display: flex;
+    gap:15px;
+}
+
+.delete-btn,
+.edit-btn{
+    border: 1px solid transparent;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+}
+.delete-btn:hover
+{
+    border: 1px solid hsl(233, 11%, 84%);
+}
+
+.delete-btn-dark-mode:hover{
+    border: 1px solid hsl(234, 11%, 52%);
+}
+
+.edit-btn:hover{
+    border: 1px solid hsl(220, 98%, 61%);
+}

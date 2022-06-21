@@ -1,0 +1,12 @@
+.modal-background{
+    width: 100vw;
+    height: 100vh;
+    background-color: hsla(235, 19%, 35%,0.2);
+    z-index: 600;
+    position: absolute;
+    top:0;
+    left:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

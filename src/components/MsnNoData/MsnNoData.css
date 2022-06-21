@@ -1,0 +1,28 @@
+.msn-container{
+    width: 100%;
+    height: 180px;
+    background-color: hsl(0,0%,100%);
+    box-shadow: 0px 28px 20px 5px hsla(233, 11%, 84%,0.6);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+.msn-text{
+    color: hsl(235, 19%, 35%);
+    font-size: 20px;
+    text-align: center;
+}
+
+.msn-container-dark-mode{
+    background-color: hsl(235, 24%, 19%);
+    box-shadow: 0px 28px 20px 5px hsl(233deg 22% 8%);
+}
+
+.msn-container-dark-mode .msn-text{
+    color: hsl(236, 33%, 92%);
+}

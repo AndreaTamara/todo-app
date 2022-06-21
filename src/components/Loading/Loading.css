@@ -1,0 +1,65 @@
+.loading-container {
+    z-index: 400;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.loading-item {
+    width: 100%;
+    height: 40px;
+    background-color: hsl(236, 33%, 92%);
+    border-radius: 3px;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+
+}
+
+.loading-container-dark-mode .loading-item {
+    background-color: hsl(234, 24%, 24%);
+}
+
+.loading-highlight {
+    width: 80%;
+    height: 40px;
+    background-color: hsl(233, 11%, 84%);
+    border-radius: 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.18;
+    box-shadow: 10px 0px 14px 0px hsl(233, 11%, 84%);
+    animation: loader 1.1s linear infinite;
+}
+
+.loading-container-dark-mode .loading-highlight {
+    background-color: hsl(235, 24%, 19%);
+    box-shadow: 10px 0px 14px 0px hsl(235, 24%, 19%);
+}
+
+@keyframes loader {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.loading-circle {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: hsl(233, 11%, 84%);
+}
+
+.loading-container-dark-mode .loading-circle {
+    background-color: hsl(235, 24%, 19%);
+}

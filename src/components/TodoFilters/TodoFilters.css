@@ -1,0 +1,24 @@
+.todo-filter-bar {
+    display: flex;
+    gap: 10px;
+}
+.todo-btn{
+    color:hsl(236, 9%, 61%);
+    font-weight: bold;
+    font-size: 14px;
+}
+.todo-btn-darkMode{
+    color:hsl(234, 11%, 52%);
+}
+
+.todo-btn:hover {
+    color: hsl(235, 19%, 35%);
+    cursor: pointer;
+}
+.todo-btn-darkMode:hover{
+    color:hsl(236, 33%, 92%);
+}
+
+.filter-active {
+    color: hsl(220, 98%, 61%);
+}

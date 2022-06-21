@@ -1,0 +1,21 @@
+.background {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    background-color: hsl(0, 0%, 98%); 
+   
+}
+
+.background-dark-mode{
+    background-color:hsl(235, 21%, 11%);
+}
+
+.image-desk{
+    width: 100vw;
+    min-height: 200px;
+}
+.image-mobile{
+    width: 100vw;
+    max-height: 300px;
+}

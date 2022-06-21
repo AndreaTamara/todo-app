@@ -1,0 +1,7 @@
+.counter{
+    color:hsl(236, 9%, 61%);
+    font-size: 12px;
+}
+.counter-dark-mode{
+    color:hsl(234, 11%, 52%);
+}
