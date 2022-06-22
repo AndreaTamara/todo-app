@@ -1,10 +1,10 @@
 
 import { TodoIcons } from '../TodoIcons'
 import './TodoItem.css'
-import { useContext } from 'react';
+import {  useContext } from 'react';
 import { ThemeContext } from '../../Context';
 
-function TodoItem({ text, completed, onComplete,deleteTodo, openEditTodo}) {
+function TodoItem ({ text, completed, onComplete,deleteTodo, openEditTodo}) {
     const {darkMode} = useContext(ThemeContext)
     return (
         <li className={`todo-item-container ${darkMode?'todo-item-container-darkMode':''}`}>

@@ -1,5 +1,6 @@
 
 import { useContext, useState } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import './App.css';
 import { Background } from './components/Background';
 import { CreateTodoInput } from './components/CreateTodoInput';
@@ -24,6 +25,7 @@ function App() {
   const [openModal, setOpenModal] = useState(false);
   const [textToEdit, setTextToEdit] = useState('')
   const { darkMode } = useContext(ThemeContext)
+
 
 
   const totalUncompletedTodos = todos.filter(todo => !todo.completed).length
@@ -82,63 +84,97 @@ function App() {
     newTodos[todoIndex].text = newText;
     setTodos(newTodos);
   }
-
+  const reorder = (list, startIndex, endIndex)=>{
+    const result = [...list];;
+    const [removed] = result.splice(startIndex,1);
+    result.splice(endIndex,0,removed);
+    return result;
+}
+  const onDragAndDrop = (result)=>{
+    const { source, destination} = result;
+    if(!destination)return;
+    if(source.index===destination.index 
+      && source.droppableId===destination.droppableId)return;
+      setTodos((prevTodos)=>reorder(prevTodos,source.index, destination.index))
+  }
   return (
     <>
-      <Background />
+      <DragDropContext onDragEnd={(result) => onDragAndDrop(result)}>
+        <Background />
 
-      <div className='wrapper'>
+        <div className='wrapper'>
 
-        <main className='todo-container'>
+          <main className='todo-container'>
 
-          <TodoHeader />
+            <TodoHeader />
 
-          <CreateTodoInput addTodo={addTodo} />
+            <CreateTodoInput addTodo={addTodo} />
 
-          {isLoading && <Loading count={4} />}
-          {error && <MsnNoData message={'An error occurred, please reload the page'} />}
-          {(!isLoading && !filterTodos.length) &&
-            <MsnNoData message={filterMessage} />}
-
-          <TodoList>
-            {filterTodos.map((todo, i) => {
-              return (
-                <TodoItem
-                  key={i + todo.text}
-                  completed={todo.completed}
-                  text={todo.text}
-                  onComplete={toogleonComplete}
-                  deleteTodo={deleteTodo}
-                  openEditTodo={openEditTodo}
-                />
-              )
-            })}
-          </TodoList>
-
-          <TodoActionsBar
-            totalUncompletedTodos={totalUncompletedTodos}
-            clearCompletedTodos={clearCompletedTodos}
-            setFilter={setFilter}
-            filter={filter}
-          />
-          <p className={`footer ${darkMode ? 'footer-dark-mode' : ''}`}>
-            Drag and drop to reorder list
-          </p>
-        </main>
-
-        {openModal &&
-          <Modal>
-            <TodoEditForm
-              textToEdit={textToEdit}
-              setOpenModal={setOpenModal}
-              editTextTodo={editTextTodo}
+            {isLoading && <Loading count={4} />}
+            {error && <MsnNoData message={'An error occurred, please reload the page'} />}
+            {(!isLoading && !filterTodos.length) &&
+              <MsnNoData message={filterMessage} />}
+            <Droppable droppableId='todoList'>
+              {(droppableProvided) => (
+                <div 
+                  {...droppableProvided.droppableProps}
+                  ref={droppableProvided.innerRef}
+                  className='droppable-container'
+                >
+                  <TodoList>
+                    {filterTodos.map((todo, i) => {
+                      return (
+                        <Draggable
+                          key={i + todo.text}
+                          draggableId={i + todo.text}
+                          index={i}
+                        >
+                          {(draggableProvided) => (
+                            <div
+                              {...draggableProvided.draggableProps}
+                              ref={draggableProvided.innerRef}
+                              {...draggableProvided.dragHandleProps}
+                            >
+                              <TodoItem
+                                completed={todo.completed}
+                                text={todo.text}
+                                onComplete={toogleonComplete}
+                                deleteTodo={deleteTodo}
+                                openEditTodo={openEditTodo}
+                              />
+                            </div>)}
+                        </Draggable>
+                      )
+                    })}
+                    {droppableProvided.placeholder}
+                  </TodoList>
+                  
+                </div>)}
+            </Droppable>
+            <TodoActionsBar
+              totalUncompletedTodos={totalUncompletedTodos}
+              clearCompletedTodos={clearCompletedTodos}
+              setFilter={setFilter}
+              filter={filter}
             />
-          </Modal>
-        }
+            <p className={`footer ${darkMode ? 'footer-dark-mode' : ''}`}>
+              Drag and drop to reorder list
+            </p>
+          </main>
 
-      </div>
+          {openModal &&
+            <Modal>
+              <TodoEditForm
+                textToEdit={textToEdit}
+                setOpenModal={setOpenModal}
+                editTextTodo={editTextTodo}
+              />
+            </Modal>
+          }
 
+        </div>
 
+      </DragDropContext>
     </>
   );
 }
