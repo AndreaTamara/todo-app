@@ -115,12 +115,13 @@ function App() {
             {error && <MsnNoData message={'An error occurred, please reload the page'} />}
             {(!isLoading && !filterTodos.length) &&
               <MsnNoData message={filterMessage} />}
-            <Droppable droppableId='todoList'>
+            <Droppable droppableId='todoList' ignoreContainerClipping={true}>
               {(droppableProvided) => (
                 <div 
                   {...droppableProvided.droppableProps}
                   ref={droppableProvided.innerRef}
                   className='droppable-container'
+                  
                 >
                   <TodoList>
                     {filterTodos.map((todo, i) => {
