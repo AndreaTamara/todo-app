@@ -95,7 +95,8 @@ function App() {
     if(!destination)return;
     if(source.index===destination.index 
       && source.droppableId===destination.droppableId)return;
-      setTodos((prevTodos)=>reorder(prevTodos,source.index, destination.index))
+     const newTodos = reorder(todos,source.index, destination.index);
+      setTodos(newTodos);
   }
   return (
     <>

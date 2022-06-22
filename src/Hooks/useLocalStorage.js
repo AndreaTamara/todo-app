@@ -12,7 +12,7 @@ function useLocalStorage(dataName, initialValue) {
             setTimeout(() => {
                 const localStorageData = localStorage.getItem(dataName);
                 let parsedData;
-                if (!localStorageData) {
+                if (!localStorageData || localStorageData==='undefined') {
                     localStorage.setItem(dataName, JSON.stringify(initialValue));
                     parsedData = initialValue;
                 } else {
