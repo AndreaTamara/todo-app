@@ -1,6 +1,7 @@
 
-import { useContext, useState } from 'react';
+import { useContext, useReducer, useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { TYPES } from './actions/todosActions';
 import './App.css';
 import { Background } from './components/Background';
 import { CreateTodoInput } from './components/CreateTodoInput';
@@ -13,47 +14,33 @@ import { TodoHeader } from './components/TodoHeader';
 import { TodoItem } from './components/TodoItem';
 import { TodoList } from './components/TodoList';
 import { ThemeContext } from './Context';
-import { useLocalStorage } from './Hooks/useLocalStorage';
+import { saveNewData, setTodosInitialState, todosInicialState, todosReducer } from './reducers/todosReducer';
 
 
 
 
 function App() {
 
-  const { data: todos, saveNewData: setTodos, isLoading, error } = useLocalStorage('TODOS_V2-APP', []);
+  const [state, dispacth] = useReducer(todosReducer, todosInicialState, setTodosInitialState);
+  //console.log(state)
+  const { todos, isLoading } = state
+  saveNewData(todos);
+  //console.log(todos)
   const [filter, setFilter] = useState('all');
   const [openModal, setOpenModal] = useState(false);
   const [textToEdit, setTextToEdit] = useState('')
   const { darkMode } = useContext(ThemeContext)
 
-
-
   const totalUncompletedTodos = todos.filter(todo => !todo.completed).length
 
-  const addTodo = (text) => {
-    const newTodos = [...todos];
-    newTodos.push({ completed: false, text: text })
-    setTodos(newTodos);
-  }
+  const addTodo = (text) => dispacth({ type: TYPES.ADD_NEW_TODO, payload: text })
 
-  const toogleonComplete = (text) => {
-    const todoIndex = todos.findIndex(todo => todo.text === text);
-    const newTodos = [...todos];
-    newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
-    setTodos(newTodos);
-  }
+  const toogleonComplete = (text) => dispacth({ type: TYPES.TOOGLE_COMPLETE_TODO, payload: text })
 
-  const deleteTodo = (text) => {
-    const todoIndex = todos.findIndex(todo => todo.text === text);
-    const newTodos = [...todos];
-    newTodos.splice(todoIndex, 1);
-    setTodos(newTodos);
-  }
+  const deleteTodo = (text) => dispacth({ type: TYPES.DELETE_TODO, payload: text })
 
-  const clearCompletedTodos = () => {
-    const newTodos = todos.filter(todo => !todo.completed);
-    setTodos(newTodos);
-  }
+  const clearCompletedTodos = () => dispacth({ type: TYPES.CLEAR_COMPLETED_TODOS })
+
 
   let filterTodos = [];
   let filterMessage;
@@ -78,25 +65,18 @@ function App() {
     setOpenModal(true);
   }
 
-  const editTextTodo = (newText, previousText) => {
-    const todoIndex = todos.findIndex(todo => todo.text === previousText);
-    const newTodos = [...todos];
-    newTodos[todoIndex].text = newText;
-    setTodos(newTodos);
-  }
-  const reorder = (list, startIndex, endIndex)=>{
-    const result = [...list];;
-    const [removed] = result.splice(startIndex,1);
-    result.splice(endIndex,0,removed);
-    return result;
-}
-  const onDragAndDrop = (result)=>{
-    const { source, destination} = result;
-    if(!destination)return;
-    if(source.index===destination.index 
-      && source.droppableId===destination.droppableId)return;
-     const newTodos = reorder(todos,source.index, destination.index);
-      setTodos(newTodos);
+  const editTextTodo = (newText, previousText) => dispacth({ type: TYPES.EDIT_TEXT_TODO, payload: { newText, previousText } })
+
+
+  const onDragAndDrop = (result) => {
+    const { source, destination } = result;
+    if (!destination) return;
+    if (source.index === destination.index
+      && source.droppableId === destination.droppableId) return;
+    dispacth({
+      type: TYPES.REORDER_TODOS,
+      payload: { startIndex: source.index, endIndex: destination.index }
+    })
   }
   return (
     <>
@@ -112,16 +92,17 @@ function App() {
             <CreateTodoInput addTodo={addTodo} />
 
             {isLoading && <Loading count={4} />}
-            {error && <MsnNoData message={'An error occurred, please reload the page'} />}
-            {(!isLoading && !filterTodos.length) &&
+            {/* {error && <MsnNoData message={'An error occurred, please reload the page'} />} */}
+            {/* {(!isLoading && !filterTodos.length) && */}
+            {(!filterTodos.length) &&
               <MsnNoData message={filterMessage} />}
             <Droppable droppableId='todoList' ignoreContainerClipping={true}>
               {(droppableProvided) => (
-                <div 
+                <div
                   {...droppableProvided.droppableProps}
                   ref={droppableProvided.innerRef}
                   className='droppable-container'
-                  
+
                 >
                   <TodoList>
                     {filterTodos.map((todo, i) => {
@@ -143,6 +124,7 @@ function App() {
                                 onComplete={toogleonComplete}
                                 deleteTodo={deleteTodo}
                                 openEditTodo={openEditTodo}
+                                index={i}
                               />
                             </div>)}
                         </Draggable>
@@ -150,7 +132,7 @@ function App() {
                     })}
                     {droppableProvided.placeholder}
                   </TodoList>
-                  
+
                 </div>)}
             </Droppable>
             <TodoActionsBar

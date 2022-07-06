@@ -1,24 +1,29 @@
-import { useEffect, useState } from "react"
+import { useEffect, useReducer, useState } from "react";
+import { TYPES } from "../actions/todosActions";
+import {todosInicialState, todosReducer} from '../reducers/todosReducer'
 
 function useLocalStorage(dataName, initialValue) {
-    
-    const [data, setData] = useState(initialValue);
+
+    const [state, dispacth] = useReducer(todosReducer,todosInicialState);
+   const {todos} = state
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(false);
+    let parsedData
     
     useEffect(() => {
        
         try {
             setTimeout(() => {
                 const localStorageData = localStorage.getItem(dataName);
-                let parsedData;
+                
                 if (!localStorageData || localStorageData==='undefined') {
                     localStorage.setItem(dataName, JSON.stringify(initialValue));
-                    parsedData = initialValue;
+                    parsedData = initialValue
                 } else {
                     parsedData = JSON.parse(localStorageData)
+                    dispacth({type: TYPES.FETCH_DATA_FROM_LOCALSTORAGE,payload: parsedData}) 
                 }
-                setData(parsedData);
+               
                 setIsLoading(false);
             }, 1000)
         }
@@ -29,12 +34,14 @@ function useLocalStorage(dataName, initialValue) {
     },[])
 
     const saveNewData = (newData) => {
+        
         localStorage.setItem(dataName, JSON.stringify(newData));
-        setData(newData);
+        
     }
     
 
-    return { data, saveNewData, isLoading, error }
+    return { todos,saveNewData, isLoading, error,dispacth}
 }
+
 
 export { useLocalStorage }
