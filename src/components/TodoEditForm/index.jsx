@@ -1,13 +1,14 @@
 import { useState } from "react"
 import './TodoEditForm.css';
-import { useContext } from 'react';
-import { ThemeContext } from '../../Context';
+import { selectedMode } from '../../Slices/modeSlice';
+import { useSelector } from "react-redux"
 
 
-function TodoEditForm({ textToEdit, setOpenModal, editTextTodo }) {
+function TodoEditForm({ textToEdit, idToEdit, setOpenModal, editTextTodo }) {
     
-    const {darkMode} = useContext(ThemeContext)
+    const darkMode = useSelector(selectedMode)
     const [newText, setNewText] = useState(textToEdit)
+    
 
     const onCancel = () => {
         setOpenModal(false)
@@ -19,7 +20,7 @@ function TodoEditForm({ textToEdit, setOpenModal, editTextTodo }) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        editTextTodo(newText, textToEdit)
+        editTextTodo(newText,idToEdit)
         setOpenModal(false);
     }
 

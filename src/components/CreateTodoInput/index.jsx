@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import './CreateTodoInput.css';
-import { useContext } from 'react';
-import { ThemeContext } from '../../Context';
+import { selectedMode } from '../../Slices/modeSlice';
+import { useSelector } from "react-redux"
 
 function CreateTodoInput({ addTodo }) {
 
-    const {darkMode} = useContext(ThemeContext)
+    const darkMode = useSelector(selectedMode)
     const [newTodoText, setNewTodoText] = useState('');
 
     const onChange = (e) => {

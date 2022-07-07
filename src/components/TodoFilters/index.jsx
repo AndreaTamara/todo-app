@@ -1,10 +1,10 @@
 import './TodoFilters.css';
-import { useContext } from 'react';
-import { ThemeContext } from '../../Context';
+import { selectedMode } from '../../Slices/modeSlice';
+import { useSelector } from "react-redux"
 
 function TodoFilters({ setFilter, filter }) {
 
-    const {darkMode} = useContext(ThemeContext);
+    const darkMode = useSelector(selectedMode)
 
     return (
         <div className='todo-filter-bar'>

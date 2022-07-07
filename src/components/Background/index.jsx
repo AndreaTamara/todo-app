@@ -3,13 +3,14 @@ import bgMobileDark from '../../assets/bg-mobile-dark.jpg';
 import bgDesktopLight from '../../assets/bg-desktop-light.jpg';
 import bgDesktopDark from '../../assets/bg-desktop-dark.jpg';
 import './Background.css';
-import { useContext } from 'react';
-import { ThemeContext } from '../../Context';
+import { selectedMode } from '../../Slices/modeSlice';
+import { useSelector } from "react-redux"
+
 
 
 function Background() {
 
-    const {darkMode} = useContext(ThemeContext)
+    const darkMode = useSelector(selectedMode)
     
     return (
         <div

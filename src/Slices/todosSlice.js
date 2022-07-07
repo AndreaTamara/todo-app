@@ -37,61 +37,37 @@ export const saveNewData = (newData) => {
     localStorage.setItem('TODOS_V2-APP', JSON.stringify(newData));
 }
 
-
-//TODO---REFACTORIZAR USANDO IMMER JS LA LOGICA DE LOS REDUCERS---
 const todosSlice = createSlice({
     name: 'todos',
     initialState: todosInicialState,
     reducers: {
         addNewTodo:{
             reducer(state,action){
-                return {
-                    ...state,
-                    todos: [...state.todos, { text: action.payload, completed: false, id: nanoid()}]
-                }
+                const newTodo = {text: action.payload, completed: false, id: nanoid()}
+                state.todos = state.todos.concat(newTodo)
             }
         },
         toogleCompleteTodo:{
             reducer(state,action){
-                return {
-                    ...state,
-                    todos: state.todos.map(todo =>
-                        todo.id === action.payload ?
-                            { ...todo, completed: !todo.completed }
-                            :
-                            todo
-                    )
-                }
+                const indexTodoToEdit= state.todos.findIndex(todo=>todo.id===action.payload)
+                state.todos[indexTodoToEdit].completed = !state.todos[indexTodoToEdit].completed
             }
         },
         deleteOneTodo:{
             reducer(state,action){
-                return {
-                    ...state,
-                    todos: state.todos.filter(todo => todo.id !== action.payload)
-                }
+                state.todos = state.todos.filter(todo => todo.id !== action.payload)
             }
         },
         deleteCompletedTodos:{
-            reducer(state,action){
-                return {
-                    ...state,
-                    todos: state.todos.filter(todo => !todo.completed)
-                }
+            reducer(state){
+                state.todos = state.todos.filter(todo => !todo.completed)
             }
         },
         editTodo:{
             reducer(state,action){
-                const { newText, previousText } = action.payload
-            return {
-                ...state,
-                todos: state.todos.map((todo) =>
-                    todo.text === previousText ?
-                        { ...todo, text: newText }
-                        :
-                        todo
-                )
-            }
+                const { newText, id } = action.payload
+                const indexTodoToEdit= state.todos.findIndex(todo=>todo.id===id)
+                state.todos[indexTodoToEdit].text = newText
             }
         },
         reorderTodos:{
@@ -104,10 +80,8 @@ const todosSlice = createSlice({
                 const newTodos = [...state.todos];
                 const [removed] = newTodos.splice(source.index, 1);
                 newTodos.splice(destination.index, 0, removed);
-                return {
-                    ...state,
-                    todos: newTodos
-                }
+                state.todos = newTodos
+                
             }
         }
     },

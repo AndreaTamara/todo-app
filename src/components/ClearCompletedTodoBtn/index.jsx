@@ -1,10 +1,10 @@
 import './ClearCompletedTodoBtn.css';
-import { useContext } from 'react';
-import { ThemeContext } from '../../Context';
+import { selectedMode } from '../../Slices/modeSlice';
+import { useSelector } from "react-redux"
 
 function ClearCompletedTodoBtn({ clearCompletedTodos }) {
 
-    const {darkMode} = useContext(ThemeContext)
+    const darkMode = useSelector(selectedMode)
 
     return (
         <button

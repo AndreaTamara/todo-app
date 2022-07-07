@@ -1,11 +1,13 @@
 
 import { TodoIcons } from '../TodoIcons'
 import './TodoItem.css'
-import {  useContext } from 'react';
-import { ThemeContext } from '../../Context';
+import { selectedMode } from '../../Slices/modeSlice';
+import { useSelector } from "react-redux"
 
 function TodoItem ({ text, completed, onComplete,deleteTodo, openEditTodo, id}) {
-    const {darkMode} = useContext(ThemeContext)
+
+    const darkMode = useSelector(selectedMode)
+    
     return (
         <li className={`todo-item-container ${darkMode?'todo-item-container-darkMode':''}`}>
             <span
@@ -28,7 +30,7 @@ function TodoItem ({ text, completed, onComplete,deleteTodo, openEditTodo, id}) 
             <div className='btns-container'>
                 <span 
                 className='edit-btn'
-                onClick={() => openEditTodo(text)}
+                onClick={() => openEditTodo(text,id)}
                 >
                     <TodoIcons
                         typeIcon='edit'

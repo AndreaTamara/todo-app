@@ -1,9 +1,9 @@
-import { useContext } from 'react';
-import { ThemeContext } from '../../Context';
+import { selectedMode } from '../../Slices/modeSlice';
+import { useSelector } from "react-redux"
 import './Loading.css'
 function Loading({count}) {
 
-    const {darkMode} = useContext(ThemeContext)
+    const darkMode = useSelector(selectedMode)
 
     return (
 

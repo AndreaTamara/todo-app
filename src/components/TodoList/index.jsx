@@ -1,10 +1,10 @@
 import './TodoList.css';
-import { useContext } from 'react';
-import { ThemeContext } from '../../Context';
+import { selectedMode } from '../../Slices/modeSlice';
+import { useSelector } from "react-redux"
 
 function TodoList ({children}){
 
-    const {darkMode} = useContext(ThemeContext)
+    const darkMode = useSelector(selectedMode)
     
     
     return(

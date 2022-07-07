@@ -1,13 +1,13 @@
 import { TodoCounter } from '../TodoCounter';
 import { TodoFilters } from '../TodoFilters';
 import { ClearCompletedTodoBtn } from '../ClearCompletedTodoBtn';
-import { useContext } from 'react';
-import { ThemeContext } from '../../Context';
+import { selectedMode } from '../../Slices/modeSlice';
+import { useSelector } from "react-redux"
 
 import './TodoActionsBar.css'
 
 function TodoActionsBar({ totalUncompletedTodos, clearCompletedTodos, setFilter, filter }) {
-    const { darkMode } = useContext(ThemeContext)
+    const darkMode = useSelector(selectedMode)
     return (
         <div className='todo-action-bar'>
 

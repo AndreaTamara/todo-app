@@ -1,9 +1,9 @@
 import './TodoCounter.css';
-import { useContext } from 'react';
-import { ThemeContext } from '../../Context';
+import { selectedMode } from '../../Slices/modeSlice';
+import { useSelector } from "react-redux"
 
 function TodoCounter ({totalUncompletedTodos}){
-    const {darkMode} = useContext(ThemeContext)
+    const darkMode = useSelector(selectedMode)
 return(
     <p className={`counter ${darkMode?'counter-dark-mode':''}`}>
         {totalUncompletedTodos} items left
