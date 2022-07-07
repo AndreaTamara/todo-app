@@ -4,7 +4,7 @@ import './TodoItem.css'
 import {  useContext } from 'react';
 import { ThemeContext } from '../../Context';
 
-function TodoItem ({ text, completed, onComplete,deleteTodo, openEditTodo,index}) {
+function TodoItem ({ text, completed, onComplete,deleteTodo, openEditTodo}) {
     const {darkMode} = useContext(ThemeContext)
     return (
         <li className={`todo-item-container ${darkMode?'todo-item-container-darkMode':''}`}>
@@ -12,7 +12,7 @@ function TodoItem ({ text, completed, onComplete,deleteTodo, openEditTodo,index}
                 className={`circle-check 
             ${darkMode ? 'circle-check-dark-mode' : 'circle-check-ligth-mode'} 
             ${completed ? 'circle-check-completed' : ''}`}
-                onClick={() => onComplete(index+text)}
+                onClick={() => onComplete(text)}
             >
                 <TodoIcons
                     typeIcon='check'
@@ -38,7 +38,7 @@ function TodoItem ({ text, completed, onComplete,deleteTodo, openEditTodo,index}
                 <span 
                 className={`delete-btn
                 ${darkMode ? 'delete-btn-dark-mode' : ''}`}
-                onClick={() => deleteTodo(index+text)}
+                onClick={() => deleteTodo(text)}
                 >
                     <TodoIcons
                         typeIcon='delete'

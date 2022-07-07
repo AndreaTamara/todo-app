@@ -8,11 +8,8 @@ export const setTodosInitialState = (initialState) => {
     if (!localStorageData || localStorageData === 'undefined') {
         parsedData = initialState.todos
         localStorage.setItem('TODOS_V2-APP', JSON.stringify(initialState.todos));
-        console.log('setea localstorage con array vacio')
     } else {
         parsedData = JSON.parse(localStorageData)
-        console.log('trae info de localstorage como json')
-        console.log(parsedData)
     }
     return {
         ...initialState,
@@ -27,11 +24,6 @@ export const saveNewData = (newData) => {
 
 export const todosInicialState = {
     todos: [],
-    filter: {
-        selected: 'all', //active,completed,all
-        filterTodos: [],
-        filterMessage: ''
-    },
     isLoading: true
 }
 
@@ -40,14 +32,13 @@ export function todosReducer(state, action) {
         case TYPES.ADD_NEW_TODO:
             return {
                 ...state,
-                todos: [...state.todos, { text: action.payload, completed: false }]
+                todos: [...state.todos, { text: action.payload, completed: false}]
             }
-
         case TYPES.TOOGLE_COMPLETE_TODO:
             return {
                 ...state,
-                todos: state.todos.map((todo, i) =>
-                    (i + todo.text) === action.payload ?
+                todos: state.todos.map(todo =>
+                    todo.text === action.payload ?
                         { ...todo, completed: !todo.completed }
                         :
                         todo
@@ -56,26 +47,31 @@ export function todosReducer(state, action) {
         case TYPES.DELETE_TODO:
             return {
                 ...state,
-                todos: state.todos.filter((todo, i) => (i + todo.text) !== action.payload)
+                todos: state.todos.filter(todo => todo.text !== action.payload)
             }
         case TYPES.CLEAR_COMPLETED_TODOS:
             return {
                 ...state,
                 todos: state.todos.filter(todo => !todo.completed)
             }
-
         case TYPES.REORDER_TODOS: {
-            const { startIndex, endIndex } = action.payload
-            const result = [...state.todos];
-            const [removed] = result.splice(startIndex, 1);
-            result.splice(endIndex, 0, removed);
+
+            const { result } = action.payload;
+            const { source, destination } = result
+            if (!destination) return state;
+            if (source.index === destination.index
+                && source.droppableId === destination.droppableId) return state;
+            const newTodos = [...state.todos];
+            const [removed] = newTodos.splice(source.index, 1);
+            newTodos.splice(destination.index, 0, removed);
             return {
                 ...state,
-                todos: result
+                todos: newTodos
             }
 
         }
         case TYPES.EDIT_TEXT_TODO: {
+
             const { newText, previousText } = action.payload
             return {
                 ...state,
@@ -87,7 +83,6 @@ export function todosReducer(state, action) {
                 )
             }
         }
-
         default: return state;
     }
 }

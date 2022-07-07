@@ -22,16 +22,19 @@ import { saveNewData, setTodosInitialState, todosInicialState, todosReducer } fr
 function App() {
 
   const [state, dispacth] = useReducer(todosReducer, todosInicialState, setTodosInitialState);
-  //console.log(state)
+
   const { todos, isLoading } = state
+
   saveNewData(todos);
-  //console.log(todos)
+
   const [filter, setFilter] = useState('all');
   const [openModal, setOpenModal] = useState(false);
   const [textToEdit, setTextToEdit] = useState('')
   const { darkMode } = useContext(ThemeContext)
 
   const totalUncompletedTodos = todos.filter(todo => !todo.completed).length
+  let filterTodos
+  let filterMessage
 
   const addTodo = (text) => dispacth({ type: TYPES.ADD_NEW_TODO, payload: text })
 
@@ -41,43 +44,36 @@ function App() {
 
   const clearCompletedTodos = () => dispacth({ type: TYPES.CLEAR_COMPLETED_TODOS })
 
+  const editTextTodo = (newText, previousText) =>
+    dispacth({ type: TYPES.EDIT_TEXT_TODO, payload: { newText, previousText } })
 
-  let filterTodos = [];
-  let filterMessage;
-
-  switch (filter) {
-    case 'active':
-      filterTodos = todos.filter(todo => !todo.completed);
-      filterMessage = 'You have completed all your to-do´s';
-      break;
-    case 'completed':
-      filterTodos = todos.filter(todo => todo.completed);
-      filterMessage = 'You haven´t completed any to-do';
-      break;
-    default:
-      filterTodos = todos;
-      filterMessage = 'You haven´t create any to-do yet';
-  }
-
+  const onDragAndDrop = (result) =>
+    dispacth({ type: TYPES.REORDER_TODOS, payload: { result } })
 
   const openEditTodo = (text) => {
     setTextToEdit(text);
     setOpenModal(true);
   }
 
-  const editTextTodo = (newText, previousText) => dispacth({ type: TYPES.EDIT_TEXT_TODO, payload: { newText, previousText } })
+  switch (filter) {
+    case 'active': {
+      filterTodos = todos.filter(todo => !todo.completed);
+      filterMessage = 'You haven´t completed any to-do yet';
+      break;
+    }
+    case 'completed': {
+      filterTodos = todos.filter(todo => todo.completed);
+      filterMessage = 'You haven´t completed any to-do yet';
+      break;
+    }
+    default: {
+      filterTodos = todos;
+      filterMessage = 'You haven´t create any to-do yet';
+    }
 
-
-  const onDragAndDrop = (result) => {
-    const { source, destination } = result;
-    if (!destination) return;
-    if (source.index === destination.index
-      && source.droppableId === destination.droppableId) return;
-    dispacth({
-      type: TYPES.REORDER_TODOS,
-      payload: { startIndex: source.index, endIndex: destination.index }
-    })
   }
+
+
   return (
     <>
       <DragDropContext onDragEnd={(result) => onDragAndDrop(result)}>
@@ -93,8 +89,7 @@ function App() {
 
             {isLoading && <Loading count={4} />}
             {/* {error && <MsnNoData message={'An error occurred, please reload the page'} />} */}
-            {/* {(!isLoading && !filterTodos.length) && */}
-            {(!filterTodos.length) &&
+            {(!isLoading && !filterTodos.length) && 
               <MsnNoData message={filterMessage} />}
             <Droppable droppableId='todoList' ignoreContainerClipping={true}>
               {(droppableProvided) => (
