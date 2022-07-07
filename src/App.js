@@ -1,7 +1,7 @@
 
-import { useContext, useReducer, useState } from 'react';
+import { useContext,  useEffect,  useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { TYPES } from './actions/todosActions';
+import { useSelector, useDispatch } from "react-redux"
 import './App.css';
 import { Background } from './components/Background';
 import { CreateTodoInput } from './components/CreateTodoInput';
@@ -14,41 +14,52 @@ import { TodoHeader } from './components/TodoHeader';
 import { TodoItem } from './components/TodoItem';
 import { TodoList } from './components/TodoList';
 import { ThemeContext } from './Context';
-import { saveNewData, setTodosInitialState, todosInicialState, todosReducer } from './reducers/todosReducer';
+import { addNewTodo, getTodos, getTodosError, getTodosStatus, selectAllTodos, toogleCompleteTodo,deleteOneTodo,deleteCompletedTodos, editTodo,reorderTodos, saveNewData } from './Slices/todosSlice';
+
 
 
 
 
 function App() {
+  
+  const todos = useSelector(selectAllTodos)
+  console.log(todos)
+  const isLoading = useSelector(getTodosStatus)
+  const error = useSelector(getTodosError)
+  const dispacth = useDispatch()
 
-  const [state, dispacth] = useReducer(todosReducer, todosInicialState, setTodosInitialState);
-
-  const { todos, isLoading } = state
-
-  saveNewData(todos);
+  useEffect(()=>{
+    dispacth(getTodos('TODOS_V2-APP',[]))
+  },[])
+  
+  console.log(todos)
+  saveNewData(todos)
 
   const [filter, setFilter] = useState('all');
   const [openModal, setOpenModal] = useState(false);
   const [textToEdit, setTextToEdit] = useState('')
   const { darkMode } = useContext(ThemeContext)
 
+  
+ 
+
   const totalUncompletedTodos = todos.filter(todo => !todo.completed).length
   let filterTodos
   let filterMessage
 
-  const addTodo = (text) => dispacth({ type: TYPES.ADD_NEW_TODO, payload: text })
+  const addTodo = (text) => dispacth(addNewTodo(text))
 
-  const toogleonComplete = (text) => dispacth({ type: TYPES.TOOGLE_COMPLETE_TODO, payload: text })
+  const toogleonComplete = (id) => dispacth(toogleCompleteTodo(id))
 
-  const deleteTodo = (text) => dispacth({ type: TYPES.DELETE_TODO, payload: text })
+  const deleteTodo = (id) => dispacth(deleteOneTodo (id))
 
-  const clearCompletedTodos = () => dispacth({ type: TYPES.CLEAR_COMPLETED_TODOS })
+  const clearCompletedTodos = () => dispacth(deleteCompletedTodos())
 
   const editTextTodo = (newText, previousText) =>
-    dispacth({ type: TYPES.EDIT_TEXT_TODO, payload: { newText, previousText } })
+    dispacth(editTodo({ newText, previousText }))
 
   const onDragAndDrop = (result) =>
-    dispacth({ type: TYPES.REORDER_TODOS, payload: { result } })
+    dispacth( reorderTodos({ result }))
 
   const openEditTodo = (text) => {
     setTextToEdit(text);
@@ -58,7 +69,7 @@ function App() {
   switch (filter) {
     case 'active': {
       filterTodos = todos.filter(todo => !todo.completed);
-      filterMessage = 'You haven´t completed any to-do yet';
+      filterMessage = 'You have completed all your to-do´s';
       break;
     }
     case 'completed': {
@@ -87,10 +98,12 @@ function App() {
 
             <CreateTodoInput addTodo={addTodo} />
 
-            {isLoading && <Loading count={4} />}
+            
             {/* {error && <MsnNoData message={'An error occurred, please reload the page'} />} */}
             {(!isLoading && !filterTodos.length) && 
               <MsnNoData message={filterMessage} />}
+            {isLoading?  <Loading count={4} />
+            :
             <Droppable droppableId='todoList' ignoreContainerClipping={true}>
               {(droppableProvided) => (
                 <div
@@ -119,7 +132,7 @@ function App() {
                                 onComplete={toogleonComplete}
                                 deleteTodo={deleteTodo}
                                 openEditTodo={openEditTodo}
-                                index={i}
+                                id={todo.id}
                               />
                             </div>)}
                         </Draggable>
@@ -130,6 +143,7 @@ function App() {
 
                 </div>)}
             </Droppable>
+}
             <TodoActionsBar
               totalUncompletedTodos={totalUncompletedTodos}
               clearCompletedTodos={clearCompletedTodos}
