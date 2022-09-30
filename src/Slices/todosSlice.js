@@ -73,8 +73,8 @@ const todosSlice = createSlice({
         },
         reorderTodos:{
             reducer(state,action){
-                const newTodos = action.payload;
-                state.todos = newTodos.newOrder
+                const newTodos = action.payload.newOrder;
+                state.todos = newTodos
                 
             }
         }

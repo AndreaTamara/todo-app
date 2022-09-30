@@ -11,7 +11,6 @@
 - [What I learned](#what-i-learned)
 - [Screenshots](#screenshots)
 - [Author](#author)
-- [Useful resources](#useful-resources)
 
 
 
@@ -34,7 +33,7 @@ This is a solution to the [Todo app challenge on Frontend Mentor](https://www.fr
 
 ## Live site
 
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- [Todo app demo](https://todo-app-atc.netlify.app/)
 
 
 ## Built with
@@ -44,7 +43,7 @@ This is a solution to the [Todo app challenge on Frontend Mentor](https://www.fr
 - Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
 - [Redux Toolkit](https://redux-toolkit.js.org/)- Toolset for efficient Redux development
-- [react-beautiful-dnd](https://www.npmjs.com/package/react-beautiful-dnd)
+- [Framer Motion](https://www.framer.com/docs/introduction/)- for drag and drop funcionality
 
 
 ## What I learned
@@ -53,7 +52,7 @@ Building this project helped me to improve my knowledge of some topic, such as:
 
 - Data persistence without a server, using LocalStorage to storage the todo list created by a user
 - Manage the state with Redux toolkit.
-- Implement the drag and drop funcionality to reorder a list.
+- Implement the drag and drop funcionality to reorder a list with Framer Motion library
 
 
 ## Screenshots
@@ -75,8 +74,4 @@ Building this project helped me to improve my knowledge of some topic, such as:
 <!-- * [Portafolio web](https://tu-dominio.com/) -->
 
 
-## Useful resources
-
-
-- [How to add DRAG and DROP in React using react-beautiful-dnd | Tutorial](https://www.youtube.com/watch?v=bZsMWorjtFI) - This tutorial helped me to implement the drag and drog funcionality. I highly recommend this YouTube channel.
 
