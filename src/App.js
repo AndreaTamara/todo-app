@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useSelector, useDispatch } from "react-redux"
 import './App.css';
 import { Background } from './components/Background';
@@ -63,7 +63,7 @@ function App() {
 
   return (
     <>
-      <DragDropContext onDragEnd={(result) => onDragAndDrop(result)}>
+      {/* <DragDropContext onDragEnd={(result) => onDragAndDrop(result)}> */}
 
         <Background />
 
@@ -83,28 +83,29 @@ function App() {
             {isLoading ? 
               <Loading count={4} />
               :
-              <Droppable droppableId='todoList' ignoreContainerClipping={true}>
-                {(droppableProvided) => (
-                  <div
-                    {...droppableProvided.droppableProps}
-                    ref={droppableProvided.innerRef}
-                    className='droppable-container'
-                  >
+              // <Droppable droppableId='todoList' ignoreContainerClipping={true}>
+              //   {(droppableProvided) => (
+              //     <div
+              //       {...droppableProvided.droppableProps}
+              //       ref={droppableProvided.innerRef}
+              //       className='droppable-container'
+              //     >
                     <TodoList>
                       {filterTodos.map((todo, i) => {
                         return (
-                          <Draggable
-                            key={i + todo.text}
-                            draggableId={i + todo.text}
-                            index={i}
-                          >
-                            {(draggableProvided) => (
-                              <div
-                                {...draggableProvided.draggableProps}
-                                ref={draggableProvided.innerRef}
-                                {...draggableProvided.dragHandleProps}
-                              >
+                          // <Draggable
+                          //   key={i + todo.text}
+                          //   draggableId={i + todo.text}
+                          //   index={i}
+                          // >
+                            // {(draggableProvided) => (
+                            //   <div
+                            //     {...draggableProvided.draggableProps}
+                            //     ref={draggableProvided.innerRef}
+                            //     {...draggableProvided.dragHandleProps}
+                            //   >
                                 <TodoItem
+                                  key={i + todo.text}
                                   completed={todo.completed}
                                   text={todo.text}
                                   onComplete={toogleonComplete}
@@ -112,15 +113,17 @@ function App() {
                                   openEditTodo={openEditTodo}
                                   id={todo.id}
                                 />
-                              </div>)}
-                          </Draggable>
-                        )
-                      })}
-                      {droppableProvided.placeholder}
+                      //         </div>
+                      )}
+                      //     </Draggable>
+                       )
+                      // })}
+                      // {droppableProvided.placeholder}
+                        }
                     </TodoList>
-                  </div>)}
-              </Droppable>
-            }
+              //     </div>)}
+              // </Droppable>
+                      }
             <TodoActionsBar
               totalUncompletedTodos={totalUncompletedTodos}
               clearCompletedTodos={clearCompletedTodos}
@@ -147,10 +150,10 @@ function App() {
 
         </div>
 
-      </DragDropContext>
+      {/* </DragDropContext> */}
       
     </>
-  );
+  )
 }
 
 export default App;
