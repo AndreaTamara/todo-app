@@ -70,9 +70,9 @@ Building this project helped me to improve my knowledge of some topic, such as:
 ## Author
 
 **Andrea Támara Correa**
-* [micorreo@midominio.com](micorreo@midominio.com)
-* [LinkedIn](https://www.linkedin.com/in/tu-url-de-linkedin/)
-* [Portafolio web](https://tu-dominio.com/)
+* [tamara11correa@gmail.com](tamara11correa@gmail.com)
+* [LinkedIn](https://www.linkedin.com/in/andreatamara/)
+<!-- * [Portafolio web](https://tu-dominio.com/) -->
 
 
 ## Useful resources
