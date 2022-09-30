@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# Todo App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![homepage-todoapp-dark.png](https://i.postimg.cc/VvVnWmyK/homepage-todoapp-dark.png)](https://postimg.cc/Zv6WTk5N)
 
-## Available Scripts
 
-In the project directory, you can run:
+## Table of contents
 
-### `npm start`
+- [Description](#description)
+- [Live site](#live-site)
+- [Built with](#built-with)
+- [What I learned](#what-i-learned)
+- [Screenshots](#screenshots)
+- [Author](#author)
+- [Useful resources](#useful-resources)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Description
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This is a solution to the [Todo app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW). the users are able to:
 
-### `npm run build`
+- View the optimal layout for the app depending on their device's screen size
+- See hover states for all interactive elements on the page
+- Add new todos to the list
+- Mark todos as complete
+- Delete todos from the list
+- Edit todos description
+- Filter by all/active/complete todos
+- Clear all completed todos
+- Toggle light and dark mode
+- Drag and drop to reorder the todo list
+- See the number of pending tasks
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Live site
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Built with
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Semantic HTML5 markup
+- Flexbox
+- Mobile-first workflow
+- [React](https://reactjs.org/) - JS library
+- [Redux Toolkit](https://redux-toolkit.js.org/)- Toolset for efficient Redux development
+- [react-beautiful-dnd](https://www.npmjs.com/package/react-beautiful-dnd)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## What I learned
 
-## Learn More
+Building this project helped me to improve my knowledge of some topic, such as:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Data persistence without a server, using LocalStorage to storage the todo list created by a user
+- Manage the state with Redux toolkit.
+- Implement the drag and drop funcionality to reorder a list.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Screenshots
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+[![homepage-todoapp-ligth.png](https://i.postimg.cc/bvhbTmMf/homepage-todoapp-ligth.png)](https://postimg.cc/3ktdrFYt)
+<br/>
 
-### Analyzing the Bundle Size
+[![mobile-ligth.png](https://i.postimg.cc/qvnyyP1G/mobile-ligth.png)](https://postimg.cc/v4Y4dNF1)
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+[![mobile-dark.png](https://i.postimg.cc/fT1Y3zfL/mobile-dark.png)](https://postimg.cc/rKCD3LbX)
+<br/>
 
-### Making a Progressive Web App
+## Author
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**Andrea Támara Correa**
+* [micorreo@midominio.com](micorreo@midominio.com)
+* [LinkedIn](https://www.linkedin.com/in/tu-url-de-linkedin/)
+* [Portafolio web](https://tu-dominio.com/)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Useful resources
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- [How to add DRAG and DROP in React using react-beautiful-dnd | Tutorial](https://www.youtube.com/watch?v=bZsMWorjtFI) - This tutorial helped me to implement the drag and drog funcionality. I highly recommend this YouTube channel.
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

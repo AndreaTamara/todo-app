@@ -9,12 +9,13 @@ const parsedInitialState = localStorage.getItem('TODOS_V2-APP')
 }
 
 
-export const getTodos = createAsyncThunk('todos/getTodos', (dataName,initialValue)=>{
+export const getTodos = createAsyncThunk('todos/getTodos', (dataName)=>{
     try {
         let response = new Promise((resolve,reject)=>{
             setTimeout(() => {
                 const localeStorageData = localStorage.getItem(dataName);
                 let parsedData
+                const initialValue = []
                 if (!localeStorageData || localeStorageData==='undefined' || localeStorageData==='null') {
                     localStorage.setItem(dataName, JSON.stringify(initialValue))
                     parsedData = initialValue;
@@ -88,6 +89,7 @@ const todosSlice = createSlice({
     extraReducers(builder){
         builder
         .addCase(getTodos.fulfilled, (state,action)=>{
+            console.log(action.payload)
             state.isLoading =false;
             state.todos = action.payload
         })

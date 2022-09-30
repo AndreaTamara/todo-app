@@ -32,7 +32,7 @@ function App() {
   const [textToEdit, setTextToEdit] = useState({})
 
   useEffect(() => {
-    dispacth(getTodos('TODOS_V2-APP', []))
+    dispacth(getTodos('TODOS_V2-APP'))
   }, [])
 
   saveNewData(todos)
