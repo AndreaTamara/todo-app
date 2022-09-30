@@ -73,15 +73,8 @@ const todosSlice = createSlice({
         },
         reorderTodos:{
             reducer(state,action){
-                const { result } = action.payload;
-                const { source, destination } = result
-                if (!destination) return state;
-                if (source.index === destination.index
-                    && source.droppableId === destination.droppableId) return state;
-                const newTodos = [...state.todos];
-                const [removed] = newTodos.splice(source.index, 1);
-                newTodos.splice(destination.index, 0, removed);
-                state.todos = newTodos
+                const newTodos = action.payload;
+                state.todos = newTodos.newOrder
                 
             }
         }

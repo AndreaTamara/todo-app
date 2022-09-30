@@ -3,34 +3,40 @@ import { TodoIcons } from '../TodoIcons'
 import './TodoItem.css'
 import { selectedMode } from '../../Slices/modeSlice';
 import { useSelector } from "react-redux"
+import { useMotionValue, Reorder } from "framer-motion";
 
-function TodoItem ({ text, completed, onComplete,deleteTodo, openEditTodo, id}) {
+function TodoItem ({ todo, onComplete,deleteTodo, openEditTodo}) {
 
     const darkMode = useSelector(selectedMode)
+    const y = useMotionValue(0);
     
     return (
-        <li className={`todo-item-container ${darkMode?'todo-item-container-darkMode':''}`}>
+        <Reorder.Item
+        key={todo.id}
+        value={todo}
+        as='li' 
+        className={`todo-item-container ${darkMode?'todo-item-container-darkMode':''}`}>
             <span
                 className={`circle-check 
             ${darkMode ? 'circle-check-dark-mode' : 'circle-check-ligth-mode'} 
-            ${completed ? 'circle-check-completed' : ''}`}
-                onClick={() => onComplete(id)}
+            ${todo.completed ? 'circle-check-completed' : ''}`}
+                onClick={() => onComplete(todo.id)}
             >
                 <TodoIcons
                     typeIcon='check'
-                    color={completed ? 'hsl(0, 0%, 100%)' : 'transparent'}
+                    color={todo.completed ? 'hsl(0, 0%, 100%)' : 'transparent'}
                 />
             </span>
             <p 
-                className={`todo-text ${completed ? 'todo-text-completed' : ''} 
+                className={`todo-text ${todo.completed ? 'todo-text-completed' : ''} 
                             ${darkMode?'todo-text-dark-mode':''}`}
             >
-                {text} 
+                {todo.text} 
             </p>
             <div className='btns-container'>
                 <span 
                 className='edit-btn'
-                onClick={() => openEditTodo(text,id)}
+                onClick={() => openEditTodo(todo.text,todo.id)}
                 >
                     <TodoIcons
                         typeIcon='edit'
@@ -40,7 +46,7 @@ function TodoItem ({ text, completed, onComplete,deleteTodo, openEditTodo, id}) 
                 <span 
                 className={`delete-btn
                 ${darkMode ? 'delete-btn-dark-mode' : ''}`}
-                onClick={() => deleteTodo(id)}
+                onClick={() => deleteTodo(todo.id)}
                 >
                     <TodoIcons
                         typeIcon='delete'
@@ -48,7 +54,7 @@ function TodoItem ({ text, completed, onComplete,deleteTodo, openEditTodo, id}) 
                     />
                 </span>
             </div>
-        </li>
+        </Reorder.Item>
     )
 }
 export { TodoItem }
